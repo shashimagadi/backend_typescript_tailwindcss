@@ -25,8 +25,18 @@ app.listen(port, async()=>{
     console.log(`server running in ${port}`);
     await connect();
 });
+const router = express.Router();
+
+router.get("/", (req, res) => {
+  res.json({ message: "User details fetched successfully!" });
+});
 
 
+app.use('/start',(req,res)=>{
+  console.log("print   yyyyy");
+  
+  res.send("success")
+})
 const authenticateToken = require('./utils/middlewares/verifyToken');
 
 const userRoutes=require("./routes/userRoutes");
@@ -34,5 +44,8 @@ app.use("/userRoutes", userRoutes);
 
 const userDetails=require("./routes/userDetailsRoutes");
  app.use("/userDetails",authenticateToken, userDetails)
-// app.use("/userDetails", userDetails)
+
+
+const emailRoutes=require("./routes/emialRoutes");
+app.use("/emailRoutes", emailRoutes)
 
